@@ -42,7 +42,7 @@ async function runCpp(code: string, inputTestCase: string) {
     const response = await new Promise((res) => {
         loggerStream.on('end', () => {
             console.log(rawLogBuffer);
-            const completeBuffer = Buffer.concat(rawLogBuffer);
+            const completeBuffer = Buffer.concat(rawLogBuffer as unknown as Uint8Array[]);
             const decodedStream = decodeDockerStream(completeBuffer);
             console.log(decodedStream);
             console.log(decodedStream.stdout);

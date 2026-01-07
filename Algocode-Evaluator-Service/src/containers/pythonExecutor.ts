@@ -69,7 +69,7 @@ class PythonExecutor implements CodeExecutorStrategy {
                 // This callback executes when the stream ends
                 clearTimeout(timeout);
                 console.log(rawLogBuffer);
-                const completeBuffer = Buffer.concat(rawLogBuffer);
+                const completeBuffer = Buffer.concat(rawLogBuffer as unknown as Uint8Array[]);
                 const decodedStream = decodeDockerStream(completeBuffer);
                 // console.log(decodedStream);
                 // console.log(decodedStream.stdout);

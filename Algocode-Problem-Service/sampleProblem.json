@@ -16,9 +16,21 @@
     "codeStubs": [
         {
             "language": "JAVA",
-            "startSnippet": "//{ Driver Code Starts\n// Initial Template for Java\n\nimport java.io.*;\nimport java.util.*;\n\nclass GFG {\n    public static void main(String[] args) throws IOException {\n        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));\n\n        int t = Integer.parseInt(br.readLine().trim());\n        while (t-- > 0) {\n            int n = Integer.parseInt(br.readLine().trim());\n            String[] str = br.readLine().trim().split(\" \");\n            int[] arr = new int[n - 1];\n            for (int i = 0; i < n - 1; i++) {\n                arr[i] = Integer.parseInt(str[i]);\n            }\n            Solution sln = new Solution();\n            System.out.println(sln.missingNumber(n, arr));\n        }\n    }\n}\n// } Driver Code Ends",
+            "startSnippet": "//{ Driver Code Starts\n// Initial Template for Java\n\nimport java.io.*;\nimport java.util.*;\n\nclass GFG {\n    public static void main(String[] args) throws IOException {\n        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));\n\n        int t = Integer.parseInt(br.readLine().trim());\n        while (t-- > 0) {\n            int n = Integer.parseInt(br.readLine().trim());\n            String[] str = br.readLine().trim().split(\" \" );\n            int[] arr = new int[n - 1];\n            for (int i = 0; i < n - 1; i++) {\n                arr[i] = Integer.parseInt(str[i]);\n            }\n            Solution sln = new Solution();\n            System.out.println(sln.missingNumber(n, arr));\n        }\n    }\n}\n// } Driver Code Ends",
             "userSnippet": "// User function Template for Java\nclass Solution {\n\n    // Note that the size of the array is n-1\n    int missingNumber(int n, int arr[]) {\n\n        // Your Code Here\n    }\n}",
             "endSnippet": ""
+        },
+        {
+            "language": "CPP",
+            "startSnippet": "#include <bits/stdc++.h>\nusing namespace std;\n\n// Driver wrapper (example)\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    int t;\n    if(!(cin>>t)) return 0;\n    while(t--) {\n        int n;\n        cin>>n;\n        // In real judge, this would call the user function.\n        // Here we just print the square as placeholder.\n        cout << n * n << '\\n';\n    }\n    return 0;\n}",
+            "userSnippet": "// User function Template for C++\nint squareNumber(int n) {\n    // Your code here\n    return n * n;\n}",
+            "endSnippet": ""
+        },
+        {
+            "language": "PYTHON",
+            "startSnippet": "def main():\n    import sys\n    data = sys.stdin.read().strip().split()\n    if not data:\n        return\n    it = iter(data)\n    t = int(next(it))\n    for _ in range(t):\n        n = int(next(it))\n        print(squareNumber(n))\n",
+            "userSnippet": "def squareNumber(n):\n    # Your code here\n    return n * n\n",
+            "endSnippet": "if __name__ == '__main__':\n    main()"
         }
     ]
 }

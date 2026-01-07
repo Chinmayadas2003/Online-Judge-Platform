@@ -1,0 +1,9 @@
+# sample-socket-frontend .env example
+# Used by the static sample frontend (index.html)
+
+# Socket server to connect to
+SOCKET_SERVER_URL=http://localhost:3001
+
+# API endpoints (if frontend calls them directly)
+# PROBLEM_SERVICE_URL=http://localhost:3002
+# SUBMISSION_SERVICE_URL=http://localhost:3003

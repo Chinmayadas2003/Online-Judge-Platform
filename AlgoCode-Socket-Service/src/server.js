@@ -36,20 +36,31 @@ io.on("connection", (socket) => {
 });
 
 app.post('/sendPayload', async (req, res) => {
-    console.log(req.body);
-    const { userId, payload } = req.body;
-   if(!userId || !payload) {
-       return res.status(400).send("Invalid request");
-   }
-   const socketId = await redisCache.get(userId);
+    try {
+        const body = req.body || {};
+        console.log('sendPayload received body:', body);
 
-   if(socketId) {
-         io.to(socketId).emit('submissionPayloadResponse', payload);
-         return res.send("Payload sent successfully");
-    } else {
-        return res.status(404).send("User not connected");
-    
-   }
+        // Accept multiple common key variants from clients
+        const userId = body.userId || body.userID || body.user || body.user_id;
+        // The payload may be sent as a nested object or the whole body
+        const payload = body.payload || (body.code ? body : undefined);
+
+        if (!userId || !payload) {
+            return res.status(400).json({ success: false, error: 'Invalid request, expected { userId, payload }' });
+        }
+
+        const socketId = await redisCache.get(userId);
+
+        if (socketId) {
+            io.to(socketId).emit('submissionPayloadResponse', payload);
+            return res.json({ success: true, message: 'Payload sent successfully' });
+        } else {
+            return res.status(404).json({ success: false, error: 'User not connected' });
+        }
+    } catch (err) {
+        console.error('Error in /sendPayload:', err);
+        return res.status(500).json({ success: false, error: 'Internal server error' });
+    }
 
 })
 

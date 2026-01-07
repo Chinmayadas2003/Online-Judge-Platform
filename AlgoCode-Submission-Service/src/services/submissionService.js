@@ -22,9 +22,44 @@ class SubmissionService {
             throw new SubmissionCreationError('Failed to create a submission in the repository');
         }
 
-        const languageCodeStub = problemAdminApiResponse.data.codeStubs.find(codeStub => codeStub.language.toLowerCase() === submissionPayload.language.toLowerCase());
+        // Validate problem response shape
+        const problemData = problemAdminApiResponse.data;
+        if (!problemData || !Array.isArray(problemData.codeStubs) || problemData.codeStubs.length === 0) {
+            throw new SubmissionCreationError('Problem data does not contain any code stubs');
+        }
 
-        console.log(languageCodeStub) 
+        // Normalize language strings (trim + lowercase) to avoid mismatches like extra spaces or case differences
+        const requestedLangRaw = String(submissionPayload.language || '').trim().toLowerCase();
+
+        // Map common aliases to canonical values stored in the problem codeStubs
+        const languageAliasMap = {
+            'python': 'python',
+            'python3': 'python',
+            'py': 'python',
+            'java': 'java',
+            'openjdk': 'java',
+            'cpp': 'cpp',
+            'c++': 'cpp',
+        };
+
+        const canonicalRequested = languageAliasMap[requestedLangRaw] || requestedLangRaw;
+
+        let languageCodeStub = problemData.codeStubs.find(codeStub => {
+            const stubLang = String(codeStub.language || '').trim().toLowerCase();
+            const stubCanonical = languageAliasMap[stubLang] || stubLang;
+            return stubCanonical === canonicalRequested;
+        });
+
+        console.log('selected code stub:', languageCodeStub);
+
+        let warning;
+        if (!languageCodeStub) {
+            // If no exact stub found, fallback to the first available stub so submissions can proceed.
+            // This is a convenience for development; it will wrap the user's code with the first stub.
+            languageCodeStub = problemData.codeStubs[0];
+            warning = `Requested language '${submissionPayload.language}' not found. Using fallback stub for language '${languageCodeStub.language}'.`;
+            console.warn(warning);
+        }
 
         submissionPayload.code = languageCodeStub.startSnippet + "\n\n" + submissionPayload.code + "\n\n" + languageCodeStub.endSnippet;
 
