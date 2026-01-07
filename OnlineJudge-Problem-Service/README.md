@@ -1,7 +1,7 @@
-# Algocode Problem Setting service
+# OnlineJudge Problem Setting service
 
 This microservice handles addition of problems and testcases along with solutions
-for algocode platform.
+for OnlineJudge platform.
 
 To set up the project on your local machine do the following steps:
 

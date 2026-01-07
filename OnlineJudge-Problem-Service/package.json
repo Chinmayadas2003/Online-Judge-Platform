@@ -1,7 +1,7 @@
 {
-  "name": "algocode-problem-service",
   "version": "1.0.0",
-  "description": "This is an admin service to manage problems of the Algocode platform",
+  "name": "onlinejudge-problem-service",
+  "description": "This is an admin service to manage problems of the OnlineJudge platform",
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon src/index.js",

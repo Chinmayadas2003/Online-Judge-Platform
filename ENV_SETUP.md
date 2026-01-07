@@ -3,10 +3,10 @@
 This document lists the environment variables required by each service and how they connect.
 
 Services and example default ports (set unique values if running all locally):
-- Algocode-Evaluator-Service: 3000
-- Algocode-Problem-Service: 3002
-- AlgoCode-Socket-Service: 3001
-- AlgoCode-Submission-Service: 3003
+- OnlineJudge-Evaluator-Service: 3000
+- OnlineJudge-Problem-Service: 3002
+- OnlineJudge-Socket-Service: 3001
+- OnlineJudge-Submission-Service: 3003
 
 Common dependencies
 
